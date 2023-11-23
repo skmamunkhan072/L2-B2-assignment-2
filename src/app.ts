@@ -1,10 +1,11 @@
-import express from "express";
-import dotenv from "dotenv";
-dotenv.config();
-const app = express();
+import express, { Request, Response } from 'express'
+const app = express()
 
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
+app.get('/', (req: Request, res: Response) => {
+  res.status(200).json({
+    success: true,
+    message: 'Your server is running ',
+  })
+})
 
-export default app;
+export default app
