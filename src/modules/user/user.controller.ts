@@ -89,11 +89,14 @@ const getSingleUpdate = async (req: Request, res: Response) => {
       message: 'single user update successfully from the database',
       data: result,
     })
-  } catch (err) {
+  } catch (err: any) {
     res.status(400).json({
       success: false,
       message: err.message,
-      error: err,
+      error: {
+        code: 404,
+        description: err,
+      },
     })
   }
 }
@@ -112,7 +115,10 @@ const getSingleDelete = async (req: Request, res: Response) => {
     res.status(400).json({
       success: false,
       message: err.message,
-      error: err,
+      error: {
+        code: 404,
+        description: err,
+      },
     })
   }
 }
