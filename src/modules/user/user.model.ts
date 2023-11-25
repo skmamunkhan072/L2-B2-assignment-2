@@ -1,5 +1,7 @@
 import mongoose, { Schema } from 'mongoose'
 import { TUser, TUserAddress, TUserName } from './user.interface'
+import bcrypt from 'bcrypt'
+import config from '../../app/config'
 
 // This is user Name Schema
 const userName = new Schema<TUserName>(
@@ -39,6 +41,15 @@ const userSchema = new Schema<TUser>({
   hobbies: [{ type: String, required: true }],
   address: { type: userAddress, required: true },
   isActive: { type: Boolean, required: true },
+})
+
+// post user save then middleware
+userSchema.pre('save', async function (next) {
+  this.password = await bcrypt.hash(
+    this.password,
+    Number(config.bcrypt_salt_rounds)
+  )
+  next()
 })
 
 // post user save then middleware
