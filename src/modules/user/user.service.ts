@@ -5,6 +5,7 @@ import { Users } from './user.model'
 const createUserIntoDB = async (userData: TUser) => {
   const user = new Users(userData)
   const result = await user.save()
+  //   const result = await Users.create(userData)
   return result
 }
 

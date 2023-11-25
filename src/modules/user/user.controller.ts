@@ -14,7 +14,6 @@ const testController = (req: Request, res: Response) => {
 const createUser = async (req: Request, res: Response) => {
   try {
     const userData = req.body
-
     const zodParseData = userValidationSchema.parse(userData)
     const result = await UserService.createUserIntoDB(zodParseData)
     res.status(200).json({
