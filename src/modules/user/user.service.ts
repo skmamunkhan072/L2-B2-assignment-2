@@ -1,5 +1,7 @@
+import config from '../../app/config'
 import { TUser } from './user.interface'
 import { Users } from './user.model'
+import bcrypt from 'bcrypt'
 
 // this is user data insert into DB service
 const createUserIntoDB = async (userData: TUser) => {
@@ -28,6 +30,13 @@ const getAllUsersFromDB = async () => {
 
 // single user Update from the database service
 const singleUserUpdateFromDB = async (userId: string, userData: object) => {
+  if (userData && userData?.password) {
+    const password = await bcrypt.hash(
+      userData?.password,
+      Number(config.bcrypt_salt_rounds)
+    )
+    userData.password = password
+  }
   const result = await Users.updateOne({ userId }, { $set: userData })
   return result
 }
