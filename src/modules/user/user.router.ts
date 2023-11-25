@@ -11,4 +11,7 @@ route.post('/', UserControllers.createUser)
 // This is single user getting from the database route
 route.get('/:userId', UserControllers.getSingleUser)
 
+// This is all users getting from the database route
+route.get('/', UserControllers.getAllUsers)
+
 export const UserRoutes = route

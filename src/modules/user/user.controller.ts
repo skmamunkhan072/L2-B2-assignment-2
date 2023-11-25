@@ -50,8 +50,27 @@ const getSingleUser = async (req: Request, res: Response) => {
   }
 }
 
+// All users getting from the database
+const getAllUsers = async (req: Request, res: Response) => {
+  try {
+    const result = await UserService.getAllUsersFromDB()
+    res.status(200).json({
+      success: true,
+      message: 'All Users getting form the database',
+      data: result,
+    })
+  } catch (err) {
+    res.status(400).json({
+      success: false,
+      message: err.message,
+      error: err,
+    })
+  }
+}
+
 export const UserControllers = {
   testController,
   createUser,
   getSingleUser,
+  getAllUsers,
 }
