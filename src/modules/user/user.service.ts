@@ -39,6 +39,23 @@ const singleUserOrderCreateFromDB = async (userId: string, order: object) => {
   return result
 }
 
+// single user orders getting from the database service
+const singleUserOrdersGetFromDB = async (userId: string) => {
+  const result = await Users.aggregate([
+    { $match: { userId } },
+    {
+      $project: {
+        _id: 0,
+        'orders.productName': 1,
+        'orders.price': 1,
+        'orders.quantity': 1,
+      },
+    },
+  ])
+
+  return result
+}
+
 export const UserService = {
   createUserIntoDB,
   getSingleUserFromDB,
@@ -46,4 +63,5 @@ export const UserService = {
   singleUserUpdateFromDB,
   singleUserDeleteFromDB,
   singleUserOrderCreateFromDB,
+  singleUserOrdersGetFromDB,
 }
