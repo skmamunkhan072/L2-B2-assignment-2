@@ -60,12 +60,16 @@ const userSchema = new Schema<TUser>({
 
 // previous user data modify password middleware
 userSchema.pre('save', async function (next) {
-  // hashing password and save DB
-  this.password = await bcrypt.hash(
-    this.password,
-    Number(config.bcrypt_salt_rounds)
-  )
-  next()
+  try {
+    // hashing password and save DB
+    this.password = await bcrypt.hash(
+      this.password,
+      Number(config.bcrypt_salt_rounds)
+    )
+    next()
+  } catch (err: any) {
+    next(err)
+  }
 })
 
 // post user save then middleware
