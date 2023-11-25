@@ -1,5 +1,5 @@
 import mongoose, { Schema } from 'mongoose'
-import { TUser, TUserAddress, TUserName } from './user.interface'
+import { TOrders, TUser, TUserAddress, TUserName } from './user.interface'
 import bcrypt from 'bcrypt'
 import config from '../../app/config'
 
@@ -21,6 +21,12 @@ const userAddress = new Schema<TUserAddress>(
   },
   { _id: false }
 )
+// this is orders schema
+const orders = new Schema<TOrders>({
+  productName: { type: String },
+  price: { type: String },
+  quantity: { type: String },
+})
 
 // This is main User Schema
 const userSchema = new Schema<TUser>({
@@ -41,6 +47,7 @@ const userSchema = new Schema<TUser>({
   hobbies: [{ type: String, required: true }],
   address: { type: userAddress, required: true },
   isActive: { type: Boolean, required: true },
+  orders: [orders],
 })
 
 // previous user data modify password middleware

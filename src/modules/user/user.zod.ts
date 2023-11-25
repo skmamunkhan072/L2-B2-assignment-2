@@ -1,19 +1,26 @@
 import { z } from 'zod'
 
-// This is user Name Schema
+// This is user Name validation Schema
 export const userNameValidationSchema = z.object({
   firstName: z.string().min(2).max(20),
   lastName: z.string().min(2).max(20),
 })
 
-// This is user Address Schema
+// This is user Address validation Schema
 export const userAddressValidationSchema = z.object({
   street: z.string(),
   city: z.string(),
   country: z.string(),
 })
 
-// This is main User Schema
+// this is orders validation schema
+export const ordersValidationSchema = z.object({
+  productName: z.string(),
+  price: z.string(),
+  quantity: z.string(),
+})
+
+// This is main User validation Schema
 export const userValidationSchema = z.object({
   userId: z.string().min(1),
   username: z.string().min(2).max(20),
@@ -25,6 +32,7 @@ export const userValidationSchema = z.object({
   hobbies: z.array(z.string()),
   address: userAddressValidationSchema,
   isActive: z.boolean().default(true),
+  orders: z.array(ordersValidationSchema).optional().default([]),
 })
 
 export default userValidationSchema

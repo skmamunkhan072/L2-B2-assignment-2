@@ -37,14 +37,19 @@ const getSingleUser = async (req: Request, res: Response) => {
     const result = await UserService.getSingleUserFromDB(userId)
     res.status(200).json({
       success: true,
-      message: 'Getting single user form the database',
-      data: result[0],
+      message: result.length
+        ? 'Getting single user form the database'
+        : 'User Not found',
+      data: result.length > 0 ? result[0] : {},
     })
-  } catch (err) {
+  } catch (err: any) {
     res.status(400).json({
       success: false,
       message: err.message,
-      error: err,
+      error: {
+        code: 404,
+        description: err,
+      },
     })
   }
 }
