@@ -21,6 +21,6 @@ route.put('/:userId', UserControllers.getSingleUpdate)
 route.delete('/:userId', UserControllers.getSingleDelete)
 
 // This is single user orders add from the database route
-route.put('/:userId/orders', UserControllers.getSingleUserOrder)
+route.put('/:userId/orders', UserControllers.singleUserOrderUpdate)
 
 export const UserRoutes = route

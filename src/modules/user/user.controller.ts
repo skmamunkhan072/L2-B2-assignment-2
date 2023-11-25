@@ -112,7 +112,7 @@ const getSingleDelete = async (req: Request, res: Response) => {
 }
 
 // single user order create from the database
-const getSingleUserOrder = async (req: Request, res: Response) => {
+const singleUserOrderUpdate = async (req: Request, res: Response) => {
   try {
     const { userId } = req.params
     const order = req.body
@@ -142,5 +142,5 @@ export const UserControllers = {
   getAllUsers,
   getSingleUpdate,
   getSingleDelete,
-  getSingleUserOrder,
+  singleUserOrderUpdate,
 }
