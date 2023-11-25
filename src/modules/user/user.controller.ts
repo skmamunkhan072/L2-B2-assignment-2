@@ -135,7 +135,7 @@ const singleUserOrderUpdate = async (req: Request, res: Response) => {
   }
 }
 
-// single user delete from the database
+// single user orders getting from the database
 const getSingleUserOrders = async (req: Request, res: Response) => {
   try {
     const { userId } = req.params
