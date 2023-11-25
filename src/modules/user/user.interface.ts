@@ -14,8 +14,8 @@ export type TUserAddress = {
 // this is user orders type
 export type TOrders = {
   productName: string
-  price: string
-  quantity: string
+  price: number
+  quantity: number
 }
 
 // user all information type

@@ -20,4 +20,7 @@ route.put('/:userId', UserControllers.getSingleUpdate)
 // This is single user delete from the database route
 route.delete('/:userId', UserControllers.getSingleDelete)
 
+// This is single user orders add from the database route
+route.put('/:userId/orders', UserControllers.getSingleUserOrder)
+
 export const UserRoutes = route

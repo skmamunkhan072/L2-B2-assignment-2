@@ -24,8 +24,8 @@ const userAddress = new Schema<TUserAddress>(
 // this is orders schema
 const orders = new Schema<TOrders>({
   productName: { type: String },
-  price: { type: String },
-  quantity: { type: String },
+  price: { type: Number },
+  quantity: { type: Number },
 })
 
 // This is main User Schema

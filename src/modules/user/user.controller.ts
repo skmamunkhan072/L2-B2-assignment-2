@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import userValidationSchema from './user.zod'
+import userValidationSchema, { ordersValidationSchema } from './user.zod'
 import { UserService } from './user.service'
 
 // This is testing controller
@@ -111,6 +111,33 @@ const getSingleDelete = async (req: Request, res: Response) => {
   }
 }
 
+// single user order create from the database
+const getSingleUserOrder = async (req: Request, res: Response) => {
+  try {
+    const { userId } = req.params
+    const order = req.body
+    const zodParseData = ordersValidationSchema.parse(order)
+    const result = await UserService.singleUserOrderCreateFromDB(
+      userId,
+      zodParseData
+    )
+    res.status(200).json({
+      success: true,
+      message: 'Order created successfully!',
+      data: null,
+    })
+  } catch (err) {
+    res.status(400).json({
+      success: false,
+      message: err.message,
+      error: {
+        code: 404,
+        description: err,
+      },
+    })
+  }
+}
+
 export const UserControllers = {
   testController,
   createUser,
@@ -118,4 +145,5 @@ export const UserControllers = {
   getAllUsers,
   getSingleUpdate,
   getSingleDelete,
+  getSingleUserOrder,
 }

@@ -16,8 +16,8 @@ export const userAddressValidationSchema = z.object({
 // this is orders validation schema
 export const ordersValidationSchema = z.object({
   productName: z.string(),
-  price: z.string(),
-  quantity: z.string(),
+  price: z.number(),
+  quantity: z.number(),
 })
 
 // This is main User validation Schema
