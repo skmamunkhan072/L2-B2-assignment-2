@@ -117,10 +117,7 @@ const getSingleUserOrder = async (req: Request, res: Response) => {
     const { userId } = req.params
     const order = req.body
     const zodParseData = ordersValidationSchema.parse(order)
-    const result = await UserService.singleUserOrderCreateFromDB(
-      userId,
-      zodParseData
-    )
+    await UserService.singleUserOrderCreateFromDB(userId, zodParseData)
     res.status(200).json({
       success: true,
       message: 'Order created successfully!',
