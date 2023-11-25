@@ -41,4 +41,10 @@ const userSchema = new Schema<TUser>({
   isActive: { type: Boolean, required: true },
 })
 
+// post user save then middleware
+userSchema.post('save', function (user, next) {
+  user.password = ''
+  next()
+})
+
 export const Users = mongoose.model<TUser>('user', userSchema)
