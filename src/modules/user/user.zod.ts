@@ -1,4 +1,5 @@
 import { z } from 'zod'
+
 // This is user Name Schema
 export const userNameValidationSchema = z.object({
   firstName: z.string().min(2).max(20),
