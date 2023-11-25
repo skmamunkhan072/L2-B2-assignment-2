@@ -11,6 +11,13 @@ export type TUserAddress = {
   country: string
 }
 
+// this is user orders type
+export type TOrders = {
+  productName: string
+  price: number
+  quantity: number
+}
+
 // user all information type
 export type TUser = {
   userId: string
@@ -23,4 +30,5 @@ export type TUser = {
   hobbies: string[]
   address: TUserAddress
   isActive: boolean
+  orders?: TOrders[]
 }
