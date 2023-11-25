@@ -11,7 +11,12 @@ const createUserIntoDB = async (userData: TUser) => {
 
 // getting single from the database service
 const getSingleUserFromDB = async (userId: string) => {
-  const result = await Users.aggregate([{ $match: { userId } }])
+  const result = await Users.aggregate([
+    { $match: { userId } },
+    {
+      $project: { orders: 0 },
+    },
+  ])
   return result
 }
 
