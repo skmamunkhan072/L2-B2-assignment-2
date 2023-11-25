@@ -54,6 +54,15 @@ userSchema.pre('save', async function (next) {
 })
 
 // post user save then middleware
+userSchema.pre('save', async function (next) {
+  this.password = await bcrypt.hash(
+    this.password,
+    Number(config.bcrypt_salt_rounds)
+  )
+  next()
+})
+
+// post user save then middleware
 userSchema.post('save', function (user, next) {
   user.password = ''
   next()
