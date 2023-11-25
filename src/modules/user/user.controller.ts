@@ -18,7 +18,7 @@ const createUser = async (req: Request, res: Response) => {
     const result = await UserService.createUserIntoDB(zodParseData)
     res.status(200).json({
       success: true,
-      message: 'User created successfully!',
+      message: 'User create is successful',
       data: result,
     })
   } catch (err: any) {
@@ -38,11 +38,24 @@ const getSingleUser = async (req: Request, res: Response) => {
   try {
     const { userId } = req.params
     const result = await UserService.getSingleUserFromDB(userId)
-    res.status(200).json({
-      success: true,
-      message: result.length ? 'Users fetched successfully!' : 'User Not found',
-      data: result.length > 0 ? result[0] : {},
-    })
+    if (result.length > 0) {
+      res.status(200).json({
+        success: true,
+        message: result.length
+          ? 'Users fetched successfully!'
+          : 'User Not found',
+        data: result[0],
+      })
+    } else {
+      res.status(400).json({
+        success: false,
+        message: 'User not found',
+        error: {
+          code: 404,
+          description: 'User not found!',
+        },
+      })
+    }
   } catch (err: any) {
     res.status(400).json({
       success: false,
@@ -61,17 +74,14 @@ const getAllUsers = async (req: Request, res: Response) => {
     const result = await UserService.getAllUsersFromDB()
     res.status(200).json({
       success: true,
-      message: 'User fetched successfully!',
+      message: 'Users fetched successfully!',
       data: result,
     })
-  } catch (err: any) {
+  } catch (err) {
     res.status(400).json({
       success: false,
       message: err.message,
-      error: {
-        code: 404,
-        description: err,
-      },
+      error: err,
     })
   }
 }
@@ -87,14 +97,11 @@ const getSingleUpdate = async (req: Request, res: Response) => {
       message: 'User updated successfully!',
       data: result,
     })
-  } catch (err: any) {
+  } catch (err) {
     res.status(400).json({
       success: false,
       message: err.message,
-      error: {
-        code: 404,
-        description: err,
-      },
+      error: err,
     })
   }
 }
@@ -103,20 +110,17 @@ const getSingleUpdate = async (req: Request, res: Response) => {
 const getSingleDelete = async (req: Request, res: Response) => {
   try {
     const { userId } = req.params
-    const result = await UserService.singleUserDeleteFromDB(userId)
+    await UserService.singleUserDeleteFromDB(userId)
     res.status(200).json({
       success: true,
       message: 'User deleted successfully!',
-      data: result,
+      data: null,
     })
-  } catch (err: any) {
+  } catch (err) {
     res.status(400).json({
       success: false,
       message: err.message,
-      error: {
-        code: 404,
-        description: err,
-      },
+      error: err,
     })
   }
 }
@@ -133,7 +137,7 @@ const singleUserOrderUpdate = async (req: Request, res: Response) => {
       message: 'Order created successfully!',
       data: null,
     })
-  } catch (err: any) {
+  } catch (err) {
     res.status(400).json({
       success: false,
       message: err.message,
@@ -153,9 +157,9 @@ const getSingleUserOrders = async (req: Request, res: Response) => {
     res.status(200).json({
       success: true,
       message: 'Order fetched successfully!',
-      data: result,
+      data: result[0],
     })
-  } catch (err: any) {
+  } catch (err) {
     res.status(400).json({
       success: false,
       message: err.message,
@@ -176,7 +180,7 @@ const getSingleUserOrdersTotalPrice = async (req: Request, res: Response) => {
       message: 'Total price calculated successfully!',
       data: result,
     })
-  } catch (err: any) {
+  } catch (err) {
     res.status(400).json({
       success: false,
       message: err.message,
