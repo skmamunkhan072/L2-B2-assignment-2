@@ -14,4 +14,7 @@ route.get('/:userId', UserControllers.getSingleUser)
 // This is all users getting from the database route
 route.get('/', UserControllers.getAllUsers)
 
+// This is single user update from the database route
+route.put('/:userId', UserControllers.getSingleUpdate)
+
 export const UserRoutes = route

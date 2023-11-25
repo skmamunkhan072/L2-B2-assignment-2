@@ -20,8 +20,15 @@ const getAllUsersFromDB = async () => {
   return result
 }
 
+// single user Update from the database service
+const singleUserUpdateFromDB = async (userId: string, userData: object) => {
+  const result = await Users.updateOne({ userId }, { $set: userData })
+  return result
+}
+
 export const UserService = {
   createUserIntoDB,
   getSingleUserFromDB,
   getAllUsersFromDB,
+  singleUserUpdateFromDB,
 }

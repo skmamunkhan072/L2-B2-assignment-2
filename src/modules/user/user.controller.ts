@@ -68,9 +68,30 @@ const getAllUsers = async (req: Request, res: Response) => {
   }
 }
 
+// single user update from the database
+const getSingleUpdate = async (req: Request, res: Response) => {
+  try {
+    const { userId } = req.params
+    const userData = req.body
+    const result = await UserService.singleUserUpdateFromDB(userId, userData)
+    res.status(200).json({
+      success: true,
+      message: 'single user update successfully from the database',
+      data: result,
+    })
+  } catch (err) {
+    res.status(400).json({
+      success: false,
+      message: err.message,
+      error: err,
+    })
+  }
+}
+
 export const UserControllers = {
   testController,
   createUser,
   getSingleUser,
   getAllUsers,
+  getSingleUpdate,
 }
