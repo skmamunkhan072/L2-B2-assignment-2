@@ -38,13 +38,24 @@ const getSingleUser = async (req: Request, res: Response) => {
   try {
     const { userId } = req.params
     const result = await UserService.getSingleUserFromDB(userId)
-    res.status(200).json({
-      success: true,
-      message: result.length
-        ? 'Getting single user form the database'
-        : 'User Not found',
-      data: result.length > 0 ? result[0] : {},
-    })
+    if (result.length > 0) {
+      res.status(200).json({
+        success: true,
+        message: result.length
+          ? 'Users fetched successfully!'
+          : 'User Not found',
+        data: result[0],
+      })
+    } else {
+      res.status(400).json({
+        success: false,
+        message: 'User not found',
+        error: {
+          code: 404,
+          description: 'User not found!',
+        },
+      })
+    }
   } catch (err: any) {
     res.status(400).json({
       success: false,
@@ -63,7 +74,7 @@ const getAllUsers = async (req: Request, res: Response) => {
     const result = await UserService.getAllUsersFromDB()
     res.status(200).json({
       success: true,
-      message: 'All Users getting form the database',
+      message: 'Users fetched successfully!',
       data: result,
     })
   } catch (err) {
@@ -83,7 +94,7 @@ const getSingleUpdate = async (req: Request, res: Response) => {
     const result = await UserService.singleUserUpdateFromDB(userId, userData)
     res.status(200).json({
       success: true,
-      message: 'single user update successfully from the database',
+      message: 'User updated successfully!',
       data: result,
     })
   } catch (err) {
@@ -99,11 +110,11 @@ const getSingleUpdate = async (req: Request, res: Response) => {
 const getSingleDelete = async (req: Request, res: Response) => {
   try {
     const { userId } = req.params
-    const result = await UserService.singleUserDeleteFromDB(userId)
+    await UserService.singleUserDeleteFromDB(userId)
     res.status(200).json({
       success: true,
-      message: 'single user deleted successfully from the database',
-      data: result,
+      message: 'User deleted successfully!',
+      data: null,
     })
   } catch (err) {
     res.status(400).json({
@@ -146,7 +157,7 @@ const getSingleUserOrders = async (req: Request, res: Response) => {
     res.status(200).json({
       success: true,
       message: 'Order fetched successfully!',
-      data: result,
+      data: result[0],
     })
   } catch (err) {
     res.status(400).json({
@@ -166,7 +177,7 @@ const getSingleUserOrdersTotalPrice = async (req: Request, res: Response) => {
     const result = await UserService.singleUserOrdersTotalPrice(userId)
     res.status(200).json({
       success: true,
-      message: 'Order fetched successfully!',
+      message: 'Total price calculated successfully!',
       data: result,
     })
   } catch (err) {
