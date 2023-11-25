@@ -156,6 +156,27 @@ const getSingleUserOrders = async (req: Request, res: Response) => {
     })
   }
 }
+// single user orders total price getting from the database
+const getSingleUserOrdersTotalPrice = async (req: Request, res: Response) => {
+  try {
+    const { userId } = req.params
+    const result = await UserService.singleUserOrdersTotalPrice(userId)
+    res.status(200).json({
+      success: true,
+      message: 'Order fetched successfully!',
+      data: result,
+    })
+  } catch (err) {
+    res.status(400).json({
+      success: false,
+      message: err.message,
+      error: {
+        code: 404,
+        description: err,
+      },
+    })
+  }
+}
 
 export const UserControllers = {
   testController,
@@ -166,4 +187,5 @@ export const UserControllers = {
   getSingleDelete,
   singleUserOrderUpdate,
   getSingleUserOrders,
+  getSingleUserOrdersTotalPrice,
 }
