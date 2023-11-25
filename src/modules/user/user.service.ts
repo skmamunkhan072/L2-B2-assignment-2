@@ -8,6 +8,13 @@ const createUserIntoDB = async (userData: TUser) => {
   return result
 }
 
+// getting single from the database service
+const getSingleUserFromDB = async (userId: string) => {
+  const result = await Users.aggregate([{ $match: { userId } }])
+  return result
+}
+
 export const UserService = {
   createUserIntoDB,
+  getSingleUserFromDB,
 }

@@ -8,4 +8,7 @@ route.get('/test', UserControllers.testController)
 //This is user create post route
 route.post('/', UserControllers.createUser)
 
+// This is single user getting from the database route
+route.get('/:userId', UserControllers.getSingleUser)
+
 export const UserRoutes = route
