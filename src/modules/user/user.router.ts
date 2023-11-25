@@ -17,4 +17,7 @@ route.get('/', UserControllers.getAllUsers)
 // This is single user update from the database route
 route.put('/:userId', UserControllers.getSingleUpdate)
 
+// This is single user delete from the database route
+route.delete('/:userId', UserControllers.getSingleDelete)
+
 export const UserRoutes = route

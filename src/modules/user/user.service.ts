@@ -26,9 +26,16 @@ const singleUserUpdateFromDB = async (userId: string, userData: object) => {
   return result
 }
 
+// single user delete from the database service
+const singleUserDeleteFromDB = async (userId: string) => {
+  const result = await Users.deleteOne({ userId })
+  return result
+}
+
 export const UserService = {
   createUserIntoDB,
   getSingleUserFromDB,
   getAllUsersFromDB,
   singleUserUpdateFromDB,
+  singleUserDeleteFromDB,
 }
