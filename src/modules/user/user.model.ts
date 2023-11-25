@@ -30,7 +30,11 @@ const orders = new Schema<TOrders>({
 
 // This is main User Schema
 const userSchema = new Schema<TUser>({
-  userId: { type: String, required: [true, 'user id is Required'] },
+  userId: {
+    type: String,
+    required: [true, 'user id is Required'],
+    unique: true,
+  },
   username: { type: String },
   fullName: { type: userName, required: [true, 'User Name is Required'] },
   password: { type: String, required: [true, 'Password must be required'] },
@@ -43,7 +47,11 @@ const userSchema = new Schema<TUser>({
     required: true,
   },
   age: { type: Number, required: true },
-  email: { type: String, required: true },
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+  },
   hobbies: [{ type: String, required: true }],
   address: { type: userAddress, required: true },
   isActive: { type: Boolean, required: true },
